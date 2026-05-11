@@ -1,1 +1,1 @@
-# 3-tier-user-platform-project
+# 3-Tier-User-Platform-Project
