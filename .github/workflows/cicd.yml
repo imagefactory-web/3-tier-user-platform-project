@@ -2,11 +2,12 @@ name: Enterprise DevSecOps CICD Pipeline
 on:
   push:
     branches:
-      - qa
+      - main
+      - feature/**
     paths:
       - client/**
       - server/**
-      - .github/workflows/qa-cicd.yml
+      - .github/workflows/cicd.yml
 permissions:
   contents: write
   id-token: write
