@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nodejs-app
-  namespace: prod
+  namespace: qa
 spec:
   replicas: 1
   selector:
@@ -17,7 +17,7 @@ spec:
       - name: regcred
       containers:
       - name: nodejs-app
-        image: driveopssurya/nodejs-app:prod-79d902d25bbe5b9f01c77946eb9912cfc4ae2825
+        image: driveopssurya/nodejs-app:236fb022387bbfb19b5c3080b22903e92dec4381
         ports:
         - containerPort: 5000
         env:
