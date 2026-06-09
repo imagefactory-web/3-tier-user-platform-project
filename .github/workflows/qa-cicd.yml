@@ -488,17 +488,21 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+
     steps:
       - name: Checkout qa branch
         uses: actions/checkout@v4
         with:
           ref: qa
+
       - name: Update image tag in manifest
         run: |
-          sed -i "s|image: devopsshack/nodejs-app:.*|image: devopsshack/nodejs-app:${GITHUB_SHA}|g" k8-manifests/qa/app-deployment.yaml
-      - name: Show updated manifest (debug)
+          sed -i "s|image: driveopssurya/nodejs-app:.*|image: driveopssurya/nodejs-app:${GITHUB_SHA}|g" k8-manifests/qa/app-deployment.yaml
+
+      - name: Show updated manifest
         run: |
-          cat k8-manifests/qa/app-deployment.yaml
+          grep "image:" k8-manifests/qa/app-deployment.yaml
+
       - name: Commit and push changes
         run: |
           git config user.name "github-actions[bot]"
