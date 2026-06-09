@@ -513,7 +513,7 @@ jobs:
     needs: update-qa-manifest
     env:
       AWS_REGION: ap-south-1
-      EKS_CLUSTER_NAME: driveops-surya
+      EKS_CLUSTER_NAME: ${{ vars.EKS_CLUSTER_NAME }}
       K8S_NAMESPACE: qa
 
     steps:
