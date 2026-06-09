@@ -65,23 +65,19 @@ body {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
-.navbar a.about {
-  background-color: rgba(255, 255, 255, 0.2);
+.navbar a.youtube {
+  background-color: #e74c3c;
 }
 
-.navbar a.features {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-.navbar a.contact {
-  background-color: rgba(255, 255, 255, 0.2);
+.navbar a.instagram {
+  background-color: #9b59b6;
 }
 
 .navbar a.home:hover,
-.navbar a.about:hover,
-.navbar a.features:hover,
-.navbar a.contact:hover {
+.navbar a.youtube:hover,
+.navbar a.instagram:hover {
   background-color: rgba(255, 255, 255, 0.3);
+  opacity: 0.9;
 }
 
 h1 {

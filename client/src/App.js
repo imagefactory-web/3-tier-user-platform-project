@@ -45,9 +45,8 @@ function App() {
                 <div className="brand">UserHub</div>
                 <div className="nav-links">
                     <a className="home" href="/">Home</a>
-                    <a className="about" href="#about">About</a>
-                    <a className="features" href="#features">Features</a>
-                    <a className="contact" href="#contact">Contact</a>
+                    <a className="youtube" href="https://www.youtube.com/@driveops_surya" target="_blank" rel="noopener noreferrer">YouTube</a>
+                    <a className="instagram" href="https://www.instagram.com/driveops_surya/" target="_blank" rel="noopener noreferrer">Instagram</a>
                 </div>
             </div>
             <h1>UserHub - User Management Platform</h1>
