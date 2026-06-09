@@ -419,7 +419,6 @@ jobs:
           tags: |
             driveopssurya/nodejs-app:${{ github.sha }}
             driveopssurya/nodejs-app:latest
-
       - name: Install Trivy
         uses: aquasecurity/setup-trivy@v0.2.6
         with:
@@ -430,16 +429,14 @@ jobs:
         run: |
           trivy --version
           which trivy
-
       - name: Run Trivy image scan (JSON)
         run: |
-          trivy image driveopssurya/nodejs-app-app:${{ github.sha }} \
+          trivy image driveopssurya/nodejs-app:${{ github.sha }} \
             --format json \
             --output image-trivy-report.json \
             --severity HIGH,CRITICAL \
             --ignore-unfixed \
             --exit-code 0
-
       - name: Run Trivy image scan (TABLE)
         run: |
           trivy image driveopssurya/nodejs-app:${{ github.sha }} \
@@ -447,7 +444,6 @@ jobs:
             --severity HIGH,CRITICAL \
             --ignore-unfixed \
             --exit-code 0 > image-trivy-report.txt
-
       - name: Upload Trivy image JSON report
         uses: actions/upload-artifact@v4
         with:
@@ -485,7 +481,6 @@ jobs:
           tags: |
             driveopssurya/nodejs-app:${{ github.sha }}
             driveopssurya/nodejs-app:latest
-
 
   update-qa-manifest:
     name: Update QA Manifest
