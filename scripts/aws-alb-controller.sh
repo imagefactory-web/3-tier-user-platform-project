@@ -3,7 +3,7 @@ set -e
 
 AWS_REGION="ap-south-1"
 ACCOUNT_ID="213615930222"
-CLUSTER_NAME="qa-cluster1"
+CLUSTER_NAME="qa-cluster"
 POLICY_NAME="AWSLoadBalancerControllerIAMPolicy"
 SERVICE_ACCOUNT_NAME="aws-load-balancer-controller"
 NAMESPACE="kube-system"

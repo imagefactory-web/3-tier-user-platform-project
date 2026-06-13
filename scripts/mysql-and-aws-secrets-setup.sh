@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-CLUSTER_NAME="qa-cluster1"
+CLUSTER_NAME="qa-cluster"
 AWS_REGION="ap-south-1"
 ACCOUNT_ID="213615930222"
 

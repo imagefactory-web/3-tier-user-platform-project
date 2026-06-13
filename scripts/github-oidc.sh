@@ -4,7 +4,6 @@ set -e
 ACCOUNT_ID="213615930222"
 REGION="ap-south-1"
 CLUSTER_NAME="qa-cluster"
-EXTRA_CLUSTER_NAME="driveops-surya"
 
 ROLE_NAME="GitHubActionsEKSDeployRoleQA"
 POLICY_NAME="GitHubActionsEKSDescribeClusterPolicy"
@@ -88,8 +87,7 @@ cat > eks-describe-cluster-policy.json <<EOF
         "eks:DescribeCluster"
       ],
       "Resource": [
-        "arn:aws:eks:$REGION:$ACCOUNT_ID:cluster/$CLUSTER_NAME",
-        "arn:aws:eks:$REGION:$ACCOUNT_ID:cluster/$EXTRA_CLUSTER_NAME"
+        "arn:aws:eks:$REGION:$ACCOUNT_ID:cluster/$CLUSTER_NAME"
       ]
     }
   ]
@@ -110,27 +108,6 @@ echo "Attaching managed policy..."
 aws iam attach-role-policy \
   --role-name "$ROLE_NAME" \
   --policy-arn "$POLICY_ARN"
-
-echo "Adding inline policy also for driveops-surya..."
-cat > github-eks-describe-policy.json <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "eks:DescribeCluster"
-      ],
-      "Resource": "arn:aws:eks:$REGION:$ACCOUNT_ID:cluster/$EXTRA_CLUSTER_NAME"
-    }
-  ]
-}
-EOF
-
-aws iam put-role-policy \
-  --role-name "$ROLE_NAME" \
-  --policy-name GitHubActionsEKSDescribeClusterInlinePolicy \
-  --policy-document file://github-eks-describe-policy.json
 
 AUTH_MODE=$(aws eks describe-cluster \
   --name "$CLUSTER_NAME" \
