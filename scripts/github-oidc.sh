@@ -5,6 +5,13 @@ ACCOUNT_ID="213615930222"
 REGION="ap-south-1"
 CLUSTER_NAME="qa-cluster"
 
+# Docker Hub credentials: PLEASE SET before running this script
+# You MUST set `DOCKERHUB_USERNAME` and `DOCKERHUB_PASSWORD` to avoid
+# committing secrets in this repository.
+DOCKERHUB_USERNAME=""
+DOCKERHUB_PASSWORD=""
+DOCKERHUB_EMAIL=""
+
 ROLE_NAME="GitHubActionsEKSDeployRoleQA"
 POLICY_NAME="GitHubActionsEKSDescribeClusterPolicy"
 REPO="imagefactory-web/3-tier-user-platform-project"
@@ -157,10 +164,16 @@ kubectl delete ns "$NAMESPACE" --ignore-not-found=true
 kubectl create ns "$NAMESPACE"
 
 echo "Creating Docker registry secret..."
+if [ -z "$DOCKERHUB_USERNAME" ] || [ -z "$DOCKERHUB_PASSWORD" ]; then
+  echo "ERROR: DOCKERHUB_USERNAME and DOCKERHUB_PASSWORD must be set in this script before running."
+  echo "Edit scripts/github-oidc.sh and set DOCKERHUB_USERNAME / DOCKERHUB_PASSWORD."
+  exit 1
+fi
+
 kubectl create secret docker-registry regcred \
-  --docker-username=driveopssurya \
-  --docker-password='Amazon@134s' \
-  --docker-email=factoryimage2@gmail.com \
+  --docker-username="$DOCKERHUB_USERNAME" \
+  --docker-password="$DOCKERHUB_PASSWORD" \
+  --docker-email="${DOCKERHUB_EMAIL:-example@example.com}" \
   -n "$NAMESPACE"
 
 echo "Verification..."
