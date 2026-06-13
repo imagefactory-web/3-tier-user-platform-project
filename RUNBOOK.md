@@ -206,11 +206,8 @@ After completing all setup steps, verify the following:
 
 4. **Test the application:**
    ```bash
-   # Wait for DNS propagation (24–48 hours typically)
+   # Wait for DNS propagation
    curl -k https://my-art.sbs
-   
-   # Or test via the ALB DNS directly
-   curl -k https://k8s-qa-appingre-695a4c242a-52333991.ap-south-1.elb.amazonaws.com
    ```
 
 5. **Check SonarQube analysis:**
