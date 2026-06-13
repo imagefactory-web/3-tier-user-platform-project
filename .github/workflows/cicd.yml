@@ -498,17 +498,17 @@ jobs:
 
       - name: Update image tag in manifest
         run: |
-          sed -i "s|image: driveopssurya/nodejs-app:.*|image: driveopssurya/nodejs-app:${GITHUB_SHA}|g" k8-manifests/prod/app-deployment.yaml
+          sed -i "s|image: ${{ vars.DOCKERHUB_REPO }}/nodejs-app:.*|image: ${{ vars.DOCKERHUB_REPO }}/nodejs-app:${GITHUB_SHA}|g" k8-manifests/qa/app-deployment.yaml
 
       - name: Show updated manifest
         run: |
-          grep "image:" k8-manifests/prod/app-deployment.yaml
+          grep "image:" k8-manifests/qa/app-deployment.yaml
 
       - name: Commit and push changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add k8-manifests/prod/app-deployment.yaml
+          git add k8-manifests/qa/app-deployment.yaml
           git commit -m "Update image to ${GITHUB_SHA} [skip ci]" || echo "No changes to commit"
           git push origin main
             
@@ -526,7 +526,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          ref: qa   # ← explicitly pull latest qa, not the trigger SHA
+          ref: main   # ← explicitly pull latest qa, not the trigger SHA
 
       - name: Configure AWS credentials from GitHub OIDC
         uses: aws-actions/configure-aws-credentials@v4
