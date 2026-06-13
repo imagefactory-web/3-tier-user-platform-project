@@ -223,4 +223,19 @@ Common Next Steps
 - Set up backups for the MySQL database.
 - Add additional environments (dev, staging, prod) with separate hosted zones and certificates.
 
+## Application Access
+
+After the setup is complete, confirm the application UI and the access URL below.
+
+![Application UI](aapplicaiton-ui.png)
+
+- **Access URL:** https://my-art.sbs (replace with your domain or the ALB DNS name)
+- **Alternative (ALB DNS):** `https://<ALB_DNS>` — retrieve with:
+
+```bash
+kubectl get ingress app-ingress -n qa -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'
+```
+
+Replace the placeholder domain above with your actual hosted domain once DNS propagation completes.
+
 
