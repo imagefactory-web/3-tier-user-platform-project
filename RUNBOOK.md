@@ -227,7 +227,7 @@ Common Next Steps
 
 After the setup is complete, confirm the application UI and the access URL below.
 
-![Application UI](aapplicaiton-ui.png)
+![Application UI](docs/Applicaiton-ui.png)
 
 - **Access URL:** https://my-art.sbs (replace with your domain or the ALB DNS name)
 - **Alternative (ALB DNS):** `https://<ALB_DNS>` — retrieve with:
