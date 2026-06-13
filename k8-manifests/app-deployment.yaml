@@ -17,7 +17,7 @@ spec:
       - name: regcred
       containers:
       - name: nodejs-app
-        image: driveopssurya/nodejs-app:4e0663f610efa04d6e36171dd9e97b37124fdcd7
+        image: driveopssurya/nodejs-app:042bd39e76d61a32b163511198f3fd1c912c5b40
         ports:
         - containerPort: 5000
         env:
