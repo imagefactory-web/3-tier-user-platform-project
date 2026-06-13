@@ -12,7 +12,7 @@ metadata:
 spec:
   ingressClassName: alb
   rules:
-    - host: my-app.art
+    - host: my-art.sbs
       http:
         paths:
           - path: /
