@@ -8,9 +8,9 @@ CLUSTER_NAME="qa-cluster"
 # Docker Hub credentials: PLEASE SET before running this script
 # You MUST set `DOCKERHUB_USERNAME` and `DOCKERHUB_PASSWORD` to avoid
 # committing secrets in this repository.
-DOCKERHUB_USERNAME=""
-DOCKERHUB_PASSWORD=""
-DOCKERHUB_EMAIL=""
+DOCKERHUB_USERNAME="driveopssurya"
+DOCKERHUB_PASSWORD="<<yourpassword>>"
+DOCKERHUB_EMAIL="suryaraghava80@gmail.com"
 
 ROLE_NAME="GitHubActionsEKSDeployRoleQA"
 POLICY_NAME="GitHubActionsEKSDescribeClusterPolicy"
