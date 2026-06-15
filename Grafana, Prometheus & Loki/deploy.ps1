@@ -118,25 +118,41 @@ Step "Setting up IAM policy for Loki S3 access"
 (Get-Content "05-loki-s3-iam-policy.json") -replace '<YOUR_S3_BUCKET>', $S3_BUCKET |
     Set-Content "05-loki-s3-iam-policy.json"
 
-# Check if LokiS3Policy already exists
+# Create or update LokiS3Policy
 $ACCOUNT_ID = aws sts get-caller-identity --query Account --output text
-$POLICY_ARN = "arn:aws:iam::${ACCOUNT_ID}:policy/LokiS3Policy"
+$POLICY_ARN = "arn:aws:iam::$ACCOUNT_ID:policy/LokiS3Policy"
 
-$existingPolicy = aws iam get-policy --policy-arn $POLICY_ARN 2>$null
-if ($LASTEXITCODE -eq 0) {
-    Log "LokiS3Policy exists - creating new version with correct bucket name..."
-    aws iam create-policy-version `
-        --policy-arn $POLICY_ARN `
-        --policy-document file://05-loki-s3-iam-policy.json `
-        --set-as-default
-    Log "LokiS3Policy updated"
-} else {
+try {
+    aws iam get-policy --policy-arn $POLICY_ARN | Out-Null
+
+    Log "LokiS3Policy exists, updating..."
+
+    try {
+        aws iam create-policy-version `
+            --policy-arn $POLICY_ARN `
+            --policy-document file://05-loki-s3-iam-policy.json `
+            --set-as-default | Out-Null
+
+        Log "LokiS3Policy updated"
+    }
+    catch {
+        Log "Could not create new policy version. Policy may already have 5 versions."
+        Log "Continuing with existing policy..."
+    }
+}
+catch {
     Log "Creating LokiS3Policy..."
-    $POLICY_ARN = (aws iam create-policy `
-        --policy-name LokiS3Policy `
-        --policy-document file://05-loki-s3-iam-policy.json `
-        --query Policy.Arn --output text)
-    Log "LokiS3Policy created: $POLICY_ARN"
+
+    try {
+        aws iam create-policy `
+            --policy-name LokiS3Policy `
+            --policy-document file://05-loki-s3-iam-policy.json | Out-Null
+
+        Log "LokiS3Policy created"
+    }
+    catch {
+        Log "LokiS3Policy already exists, continuing..."
+    }
 }
 
 # Attach to node role
