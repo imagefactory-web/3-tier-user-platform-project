@@ -1,0 +1,30 @@
+name: Test Kubernetes Runner
+
+on:
+  workflow_dispatch:  # Manual trigger
+  push:
+    branches: [ main ]
+
+jobs:
+  test-runner:
+    # Must match labels from runner deployment
+    runs-on: [self-hosted, kubernetes, linux, x64]
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Display Runner Info
+        run: |
+          echo "Running on: $(hostname)"
+          echo "Current user: $(whoami)"
+          echo "Node info:"
+          uname -a
+          echo "CPU cores: $(nproc)"
+          echo "Memory:"
+          free -h
+      
+      - name: Docker Test
+        run: |
+          docker --version || echo "Docker not available"
+          echo "Runner is working!"
